@@ -1,0 +1,66 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: qa
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp
+    password: welcome1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+welcome:
+  message: Hello Application in Dev Mode
+
+---
+spring:
+  profiles: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-qa
+    password: welcome1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+welcome:
+  message: Hello Application in QA mode
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-prod
+    password: welcome1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+welcome:
+  message: Hello Application in Prod mode
